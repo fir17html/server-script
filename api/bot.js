@@ -1,23 +1,17 @@
-// api/bot.js
 import https from "https";
+import http from "http";
 import crypto from "crypto";
 
 export default async function handler(req, res) {
-  // 1. Cek API key
   const allowedKey = "#xmdgacorbosz";
-const apiKey = req.headers["x-api-key"];
+  const apiKey = req.headers["x-api-key"];
 
-if (apiKey !== allowedKey) {
-  res.status(403).json({ error: "Invalid or missing API key" });
-  return;
-}
-
-  // 2. Ambil bot.js dari sumber (GitHub raw atau private URL)
-  const remoteUrl = "https://raw.githubusercontent.com/fir17html/scriptbot/refs/heads/main/Kyzz.js";
-  if (!remoteUrl) {
-    res.status(500).json({ error: "BOT_SOURCE_URL not configured" });
+  if (apiKey !== allowedKey) {
+    res.status(403).json({ error: "Invalid or missing API key" });
     return;
   }
+
+  const remoteUrl = "https://raw.githubusercontent.com/fir17html/scriptbot/refs/heads/main/Kyzz.js";
 
   try {
     const code = await fetchRemote(remoteUrl);
@@ -33,7 +27,8 @@ if (apiKey !== allowedKey) {
 
 function fetchRemote(url) {
   return new Promise((resolve, reject) => {
-    https.get(url, (res) => {
+    const lib = url.startsWith("https") ? https : http;
+    lib.get(url, (res) => {
       if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`));
       let data = "";
       res.setEncoding("utf8");
