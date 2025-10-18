@@ -4,13 +4,13 @@ import crypto from "crypto";
 
 export default async function handler(req, res) {
   // 1. Cek API key
-  const allowedKeys = "#xmdgacorbosz";
-  const apiKey = req.headers["x-api-key"];
+  const allowedKey = "#xmdgacorbosz";
+const apiKey = req.headers["x-api-key"];
 
-  if (!apiKey || !allowedKeys.includes(apiKey)) {
-    res.status(403).json({ error: "Invalid or missing API key" });
-    return;
-  }
+if (apiKey !== allowedKey) {
+  res.status(403).json({ error: "Invalid or missing API key" });
+  return;
+}
 
   // 2. Ambil bot.js dari sumber (GitHub raw atau private URL)
   const remoteUrl = "https://raw.githubusercontent.com/fir17html/scriptbot/refs/heads/main/Kyzz.js";
