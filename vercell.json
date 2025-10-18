@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "functions": {
+    "api/bot.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "routes": [
+    { "src": "/bot", "dest": "/api/bot.js" }
+  ]
+}
