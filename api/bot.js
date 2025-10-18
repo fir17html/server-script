@@ -4,7 +4,7 @@ import crypto from "crypto";
 
 export default async function handler(req, res) {
   // 1. Cek API key
-  const allowedKeys = process.env.ALLOWED_KEYS?.split(",").map(k => k.trim()) || [];
+  const allowedKeys = "#xmdgacorbosz";
   const apiKey = req.headers["x-api-key"];
 
   if (!apiKey || !allowedKeys.includes(apiKey)) {
@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   }
 
   // 2. Ambil bot.js dari sumber (GitHub raw atau private URL)
-  const remoteUrl = process.env.BOT_SOURCE_URL;
+  const remoteUrl = "https://raw.githubusercontent.com/fir17html/scriptbot/refs/heads/main/Kyzz.js";
   if (!remoteUrl) {
     res.status(500).json({ error: "BOT_SOURCE_URL not configured" });
     return;
